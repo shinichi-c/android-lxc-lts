@@ -8,15 +8,15 @@ LXC LTS Termux port
 ```bash
 pkg upg
 pkg i tsu
-pkg i ./lxc-lts-****.deb
+pkg i ./lxc-lts-*.deb
 ```
 
 
-# Configure after installation
+### Configure after installation
 
-### Basic configure
+### Basic Configure
 
-Mount cgroup
+#### Mount Cgroup
 
 ```bash
 for cg in blkio cpu cpuacct cpuset devices freezer memory; do
@@ -30,7 +30,7 @@ for cg in blkio cpu cpuacct cpuset devices freezer memory; do
 done
 ```
 
-Add mount point
+#### Add mount point
 
 ```conf
 lxc.cgroup.devices.allow = a *:* rwm
@@ -42,13 +42,13 @@ lxc.mount.entry = /proc/sys/fs/binfmt_misc proc/sys/fs/binfmt_misc none bind,opt
 lxc.mount.entry = /dev/fuse dev/fuse none bind,optional,create=file
 ```
 
-Mount binfmt
+#### Mount Systemd-binfmt
 
 ```bash
 sudo mount binfmt_misc -t binfmt_misc /proc/sys/fs/binfmt_misc
 ```
 
-Configure Network (Host Mode)
+#### Configure Network (Host Mode)
 
 ```bash
 sed -i 's/lxc\.net\.0\.type = empty/lxc.net.0.type = none/g' $PREFIX/etc/lxc/default.conf
@@ -56,7 +56,7 @@ sed -i 's/lxc\.net\.0\.type = empty/lxc.net.0.type = none/g' $PREFIX/etc/lxc/def
 
 ### Display, Sound
 
-Install packages
+#### Install Packages
 
 ```bash
 pkg upg
@@ -64,7 +64,7 @@ pkg i x11-repo -y
 pkg i tsu pulseaudio termux-x11-nightly -y
 ```
 
-Pulseaudio
+#### PulseAudio
 
 ```bash
 pulseaudio --start \
@@ -72,7 +72,7 @@ pulseaudio --start \
     --exit-idle-time=-1
 ```
 
-Add mount point
+#### Add mount point
 
 ```conf
 # X11
@@ -86,26 +86,25 @@ lxc.mount.entry = /dev/dma_heap dev/dma_heap none bind,optional,create=dir
 ```
 
 
-# Build Use Termux Packages
+### Build Use Termux-Packages
 
-Clone repo
+#### Clone Repo
 
 ```bash
 git clone https://github.com/TapetalArray/termux-lxc-lts
 ```
 
-Add packages
+#### Add Packages
 
 ```bash
 cp -r termux-lxc-lts/packages/lxc-lts termux-packages/packages
 ```
 
-Build
+#### Build
 
 ```bash
 ./build-package.sh -i -a aarch64 lxc-lts
 ```
-
 
 
 # Credits
