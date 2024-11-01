@@ -86,7 +86,7 @@ lxc.mount.entry = /dev/dma_heap dev/dma_heap none bind,optional,create=dir
 ```
 
 
-### Build Use Termux-Packages
+### Build with Termux-Packages
 
 #### Clone Repo
 
